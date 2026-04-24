@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Nuevo Supply Chain Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FFFFFF;--bg2:#F7F8FA;--bg3:#EFF1F5;
+  --navy:#0D1B35;--navy2:#1A2D4F;
+  --cyan:#0063CC;--cyan-light:#E8F0FB;
+  --amber:#E07B00;--amber-light:#FFF3E0;
+  --text:#1A1F2E;--muted:#5A6478;--border:#E2E6EE;
+  --shadow:0 2px 16px rgba(13,27,53,0.08);
+  --shadow-md:0 4px 32px rgba(13,27,53,0.12);
+  --radius:8px;--radius-lg:14px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden}
+a{color:var(--cyan);text-decoration:none}
+.container{max-width:1180px;margin:0 auto;padding:0 5%}
+.tag{display:inline-block;background:var(--cyan-light);color:var(--cyan);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.85rem;border-radius:100px;margin-bottom:1rem}
+.tag.amber{background:var(--amber-light);color:var(--amber)}
+h1,h2,h3{font-family:'Fraunces',serif;letter-spacing:-0.02em;color:var(--navy);line-height:1.1}
+h1{font-size:clamp(2.2rem,4vw,3.6rem);font-weight:900}
+h2{font-size:clamp(1.7rem,3vw,2.6rem);font-weight:700}
+h3{font-size:1.15rem;font-weight:700}
+.lead{font-size:1.05rem;color:var(--muted);font-weight:300;line-height:1.8}
+.btn{display:inline-block;padding:0.8rem 1.8rem;border-radius:var(--radius);font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.2s;text-decoration:none;border:none;font-family:inherit}
+.btn-primary{background:var(--cyan);color:#fff}.btn-primary:hover{background:#0052AA;color:#fff}
+.btn-outline{background:transparent;color:var(--navy);border:1.5px solid var(--border)}.btn-outline:hover{border-color:var(--navy);background:var(--bg2)}
+.btn-white{background:#fff;color:var(--navy)}.btn-white:hover{background:var(--bg2)}
+.section{padding:5rem 0}.section-alt{background:var(--bg2)}
+.section-dark{background:var(--navy);color:#fff}
+.section-dark h2,.section-dark h3{color:#fff}
+.section-dark .lead,.section-dark p{color:rgba(255,255,255,0.7)}
+.section-dark .tag{background:rgba(0,99,204,0.25);color:#7EB8FF}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;box-shadow:var(--shadow)}
+.icon-box{width:52px;height:52px;border-radius:12px;background:var(--cyan-light);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.25rem}
+.icon-box.amber{background:var(--amber-light)}
+
+/* NAV */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);height:70px;display:flex;align-items:center}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1180px;margin:0 auto;padding:0 5%}
+.logo{font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;color:var(--navy);cursor:pointer;letter-spacing:-0.02em}
+.logo span{color:var(--cyan)}
+.nav-links{display:flex;align-items:center;gap:0.25rem;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a,.nav-links>li>button{color:var(--muted);font-size:0.875rem;font-weight:500;padding:0.5rem 0.85rem;border-radius:6px;display:flex;align-items:center;gap:0.3rem;cursor:pointer;transition:color 0.2s,background 0.2s;white-space:nowrap;background:transparent;border:none;font-family:inherit}
+.nav-links>li>a:hover,.nav-links>li>button:hover,.nav-links>li>a.active{color:var(--navy);background:var(--bg2)}
+.nav-links>li>a.active{color:var(--cyan)}
+.dropdown{display:none;position:absolute;top:calc(100% + 8px);left:0;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);min-width:230px;padding:0.5rem;z-index:300}
+.nav-links>li:hover .dropdown,.nav-links>li:focus-within .dropdown{display:block}
+.dropdown a{display:block;color:var(--text);font-size:0.875rem;padding:0.6rem 0.9rem;border-radius:6px;transition:background 0.15s,color 0.15s;cursor:pointer}
+.dropdown a:hover{background:var(--cyan-light);color:var(--cyan)}
+.dd-head{padding:0.25rem 0.9rem 0.15rem;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.35rem}
+.nav-cta{background:var(--cyan)!important;color:#fff!important;border-radius:6px!important}
+.nav-cta:hover{background:#0052AA!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border:none;background:transparent}
+.hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-menu{display:none;position:fixed;top:70px;left:0;right:0;bottom:0;background:#fff;z-index:190;overflow-y:auto;padding:1.5rem 5%}
+.mob-menu.open{display:block}
+.mob-menu a,.mob-menu button{display:block;width:100%;color:var(--text);font-size:1rem;font-weight:500;padding:0.75rem 0;border-bottom:1px solid var(--border);cursor:pointer;text-align:left;background:transparent;border-left:none;border-right:none;border-top:none;font-family:inherit}
+.mob-menu .msub{padding-left:1.5rem;font-size:0.9rem;color:var(--muted)}
+.mob-cta{background:var(--cyan)!important;color:#fff!important;text-align:center!important;border-radius:var(--radius);margin-top:1.5rem;font-size:1rem;font-weight:600;padding:0.9rem!important;border:none!important;display:block!important}
+
+/* HERO */
+.hero{padding:7rem 0 5rem;background:linear-gradient(160deg,#EBF2FF 0%,#F7F8FA 60%,#fff 100%);min-height:88vh;display:flex;align-items:center}
+.hero-content h1{margin-bottom:1.5rem}
+.hero-content h1 em{font-style:italic;color:var(--cyan);font-weight:300}
+.hero-content p{font-size:1.1rem;color:var(--muted);margin-bottom:2.25rem;font-weight:300;max-width:500px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.stat-num{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:900;color:var(--navy);line-height:1}
+.stat-label{font-size:0.82rem;color:var(--muted);margin-top:0.25rem}
+.hero-visual{display:flex;flex-direction:column;gap:1rem}
+.hv-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;box-shadow:var(--shadow-md)}
+.step-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--cyan-light);color:var(--cyan);font-size:0.78rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:100px;margin-bottom:0.65rem}
+.step-badge .n{width:18px;height:18px;background:var(--cyan);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0}
+.hv-card h3{font-size:0.95rem;font-weight:600;font-family:'DM Sans',sans-serif;margin-bottom:0.3rem;color:var(--navy)}
+.hv-card p{font-size:0.83rem;color:var(--muted);margin:0}
+
+/* DARK BAND */
+.dark-band{background:var(--navy);padding:4rem 0}
+.dark-band h2{color:#fff}
+.dark-band p{color:rgba(255,255,255,0.7);font-weight:300}
+.dark-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.pain-list{display:flex;flex-direction:column;gap:0.7rem;margin-top:1.5rem}
+.pain-item{display:flex;align-items:center;gap:0.75rem;color:rgba(255,255,255,0.75);font-size:0.93rem}
+.pain-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.dark-box{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-lg);padding:1.75rem}
+.dark-box h3{color:#fff;font-size:1rem;font-family:'DM Sans',sans-serif;font-weight:600;margin-bottom:0.75rem}
+
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem}
+.svc-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;cursor:pointer;position:relative;overflow:hidden;transition:box-shadow 0.25s,transform 0.25s}
+.svc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--cyan);transform:scaleX(0);transition:transform 0.3s;transform-origin:left}
+.svc-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.svc-card:hover::after{transform:scaleX(1)}
+.svc-card h3{font-family:'Fraunces',serif;font-size:1.2rem;margin:1rem 0 0.6rem}
+.svc-card p{font-size:0.88rem;color:var(--muted);line-height:1.7}
+.svc-lnk{display:inline-flex;align-items:center;gap:0.35rem;margin-top:1.25rem;color:var(--cyan);font-size:0.875rem;font-weight:600;transition:gap 0.2s}
+.svc-lnk:hover{gap:0.6rem}
+
+/* STEPS */
+.steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;margin-top:3.5rem}
+.steps-row::before{content:'';position:absolute;top:35px;left:16.67%;right:16.67%;height:2px;background:var(--border)}
+.step-item{text-align:center;padding:0 1.5rem;position:relative;z-index:1}
+.step-circle{width:70px;height:70px;border-radius:50%;background:#fff;border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:'Fraunces',serif;font-size:1.3rem;font-weight:900;color:var(--cyan);box-shadow:var(--shadow)}
+.step-item h3{font-size:1.05rem;margin-bottom:0.6rem}
+.step-item p{font-size:0.875rem;color:var(--muted);line-height:1.7}
+
+/* STATS */
+.stats-band{background:var(--navy);padding:3.5rem 0}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stats-row .num{font-family:'Fraunces',serif;font-size:2.5rem;font-weight:900;color:#fff}
+.stats-row .lbl{font-size:0.85rem;color:rgba(255,255,255,0.55);margin-top:0.3rem}
+
+/* TESTIMONIALS */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.tcard{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;display:flex;flex-direction:column}
+.stars{color:#F5A623;font-size:0.9rem;margin-bottom:0.75rem}
+.tcard>p{font-size:0.93rem;color:var(--text);line-height:1.8;font-weight:300;flex:1}
+.t-author{display:flex;align-items:center;gap:0.75rem;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border)}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--cyan-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:var(--cyan);flex-shrink:0}
+.t-name{font-weight:600;font-size:0.88rem;color:var(--navy)}
+.t-role{font-size:0.77rem;color:var(--muted)}
+
+/* CTA BAND */
+.cta-band{background:linear-gradient(135deg,var(--navy),#1A3A6E);padding:4.5rem 0}
+.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.cta-band h2{color:#fff;font-size:clamp(1.5rem,2.5vw,2.2rem);margin-bottom:0.5rem}
+.cta-band>div p,.cta-inner>div p{color:rgba(255,255,255,0.65);font-size:0.93rem;font-weight:300}
+
+/* PAGE HERO */
+.page-hero{background:linear-gradient(160deg,#EBF2FF 0%,#F7F8FA 100%);padding:7rem 0 4rem;border-bottom:1px solid var(--border)}
+.page-hero h1{font-size:clamp(1.9rem,3.5vw,2.9rem);margin-bottom:1rem}
+.page-hero p{font-size:1.05rem;color:var(--muted);font-weight:300;max-width:580px}
+.breadcrumb{font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem;display:flex;align-items:center;gap:0.4rem}
+.breadcrumb a{color:var(--cyan);cursor:pointer}
+
+/* AREAS */
+.areas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.area-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem}
+.area-card h3{font-size:1rem;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--navy);margin-bottom:0.5rem}
+.area-card p{font-size:0.85rem;color:var(--muted);margin-bottom:1rem;line-height:1.7}
+.check-list{list-style:none;display:flex;flex-direction:column;gap:0.3rem}
+.check-list li{font-size:0.83rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.5rem}
+.check-list li::before{content:'✓';color:var(--cyan);font-weight:700;flex-shrink:0;margin-top:0.1rem}
+
+/* FAQ */
+.faq-list{margin-top:2.5rem}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 0;cursor:pointer;font-weight:600;font-size:0.97rem;color:var(--navy);gap:1rem}
+.faq-icon{width:28px;height:28px;min-width:28px;border-radius:50%;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--cyan);transition:all 0.2s;line-height:1}
+.faq-item.open .faq-icon{background:var(--cyan);color:#fff;transform:rotate(45deg)}
+.faq-a{display:none;padding-bottom:1.2rem;color:var(--muted);font-size:0.93rem;line-height:1.8;font-weight:300}
+.faq-item.open .faq-a{display:block}
+
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:2fr 1.2fr;gap:4rem;align-items:start}
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:0.875rem;font-weight:600;color:var(--navy);margin-bottom:0.45rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--radius);padding:0.72rem 1rem;font-family:inherit;font-size:0.93rem;color:var(--text);background:#fff;transition:border-color 0.2s,box-shadow 0.2s;outline:none;-webkit-appearance:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,99,204,0.1)}
+.form-group textarea{resize:vertical;min-height:130px}
+.form-group.err input,.form-group.err select,.form-group.err textarea{border-color:#C0392B}
+.form-err{font-size:0.79rem;color:#C0392B;margin-top:0.3rem;display:none}
+.form-group.err .form-err{display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-success{background:#E9F8EF;border:1.5px solid #A3D9B8;border-radius:var(--radius-lg);padding:2rem;text-align:center;display:none}
+.form-success h3{color:#1A7F4B;margin-bottom:0.5rem}
+.form-success p{color:var(--muted);font-size:0.9rem}
+.cinfo-box{background:var(--navy);border-radius:var(--radius-lg);padding:2rem;color:#fff}
+.cinfo-box h3{color:#fff;margin-bottom:1.5rem;font-size:1.05rem;font-family:'DM Sans',sans-serif;font-weight:600}
+.cinfo-item{display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:1.2rem}
+.cinfo-icon{width:36px;height:36px;min-width:36px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:0.95rem}
+.cinfo-lbl{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:0.15rem;text-transform:uppercase;font-weight:600;letter-spacing:0.06em}
+.cinfo-val{font-size:0.88rem;color:#fff}
+
+/* TECH */
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.tech-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem}
+.tech-card h3{font-size:0.97rem;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--navy);margin-bottom:0.6rem}
+.tech-card p{font-size:0.86rem;color:var(--muted);line-height:1.7}
+
+/* ABOUT */
+.values-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.75rem}
+.val-item{background:var(--bg2);border-radius:var(--radius);padding:1.2rem}
+.val-item h4{font-size:0.93rem;font-weight:600;color:var(--navy);margin-bottom:0.3rem;font-family:'DM Sans',sans-serif}
+.val-item p{font-size:0.83rem;color:var(--muted);line-height:1.6}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.team-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.team-avatar{background:linear-gradient(135deg,var(--cyan-light),var(--bg3));height:150px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:2.5rem;font-weight:900;color:var(--cyan)}
+.team-info{padding:1.25rem}
+.team-info h4{font-size:0.97rem;font-weight:600;color:var(--navy)}
+.team-info p{font-size:0.82rem;color:var(--muted)}
+
+/* BLOG */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.blog-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow 0.2s,transform 0.2s}
+.blog-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.blog-thumb{height:150px;background:linear-gradient(135deg,var(--cyan-light),var(--bg3));display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.blog-body{padding:1.25rem}
+.blog-cat{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--cyan);margin-bottom:0.4rem}
+.blog-body h3{font-size:0.97rem;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--navy);margin-bottom:0.45rem;line-height:1.4}
+.blog-body p{font-size:0.83rem;color:var(--muted);line-height:1.6}
+.blog-meta{font-size:0.77rem;color:var(--muted);margin-top:0.65rem}
+
+/* LOGOS */
+.logos-row{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center;opacity:0.5;margin-top:2rem}
+.logo-pill{background:var(--bg3);padding:0.55rem 1.3rem;border-radius:8px;font-size:0.82rem;font-weight:700;color:var(--muted);letter-spacing:0.05em}
+
+/* FOOTER */
+footer{background:var(--navy);padding:4rem 0 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand p{font-size:0.875rem;color:rgba(255,255,255,0.55);margin-top:0.85rem;line-height:1.7;max-width:270px}
+footer h5{font-size:0.77rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:1.1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem}
+.footer-col a,.footer-col button{color:rgba(255,255,255,0.55);font-size:0.875rem;transition:color 0.2s;cursor:pointer;background:transparent;border:none;font-family:inherit;text-align:left;padding:0}
+.footer-col a:hover,.footer-col button:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding:1.5rem 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:0.79rem;color:rgba(255,255,255,0.35)}
+.footer-lnks{display:flex;gap:1.5rem}
+.footer-lnks a{font-size:0.79rem;color:rgba(255,255,255,0.35);cursor:pointer;transition:color 0.2s}
+.footer-lnks a:hover{color:rgba(255,255,255,0.75)}
+.social-row{display:flex;gap:0.75rem;margin-top:1.25rem}
+.soc-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s}
+.soc-btn:hover{background:rgba(0,99,204,0.4);color:#fff}
+
+/* PAGE TRANSITIONS */
+.page{display:none}
+.page.active{display:block;animation:fadeIn 0.3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ANIMATED ITEMS */
+.anim{opacity:0;transform:translateY(18px);transition:opacity 0.5s ease,transform 0.5s ease}
+.anim.in{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .grid-2,.dark-grid,.contact-wrap{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .svc-grid,.tgrid,.areas-grid,.tech-grid,.blog-grid,.team-grid{grid-template-columns:1fr 1fr}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .steps-row{grid-template-columns:1fr;gap:1.5rem}
+  .steps-row::before{display:none}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .svc-grid,.tgrid,.areas-grid,.tech-grid,.blog-grid,.team-grid,.values-grid{grid-template-columns:1fr}
+  .cta-inner{flex-direction:column;text-align:center}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr 1fr;gap:1.5rem}
+  .logos-row{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="logo" onclick="go('home')">nuevo<span>.</span></div>
+    <ul class="nav-links">
+      <li>
+        <button>Services ▾</button>
+        <div class="dropdown">
+          <div class="dd-head">What We Offer</div>
+          <a onclick="go('consulting')">🔬 Consulting</a>
+          <a onclick="go('transactional')">🚛 Transactional Services</a>
+          <a onclick="go('transportation')">🗺️ Managed Transportation</a>
+          <a onclick="go('warehousing')">🏭 Warehousing &amp; Inventory</a>
+        </div>
+      </li>
+      <li><a onclick="go('technology')">Technology</a></li>
+      <li>
+        <button>Resources ▾</button>
+        <div class="dropdown">
+          <a onclick="go('blog')">📰 Blog</a>
+          <a onclick="go('casestudies')">📋 Case Studies</a>
+          <a onclick="go('blog')">📊 Industry Updates</a>
+        </div>
+      </li>
+      <li><a onclick="go('about')">About</a></li>
+      <li><a onclick="go('contact')">Contact</a></li>
+      <li><a class="btn btn-primary nav-cta" onclick="go('contact')">Request a Quote</a></li>
+    </ul>
+    <button class="hamburger" id="hamBtn" onclick="toggleMob()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <button onclick="go('consulting');toggleMob()">Consulting</button>
+  <button class="msub" onclick="go('transactional');toggleMob()">Transactional Services</button>
+  <button class="msub" onclick="go('transportation');toggleMob()">Managed Transportation</button>
+  <button class="msub" onclick="go('warehousing');toggleMob()">Warehousing &amp; Inventory</button>
+  <button onclick="go('technology');toggleMob()">Technology</button>
+  <button onclick="go('blog');toggleMob()">Resources / Blog</button>
+  <button onclick="go('about');toggleMob()">About</button>
+  <button onclick="go('contact');toggleMob()">Contact</button>
+  <button class="mob-cta" onclick="go('contact');toggleMob()">Request a Quote →</button>
+</div>
+
+<!-- ════════ HOME ════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="container">
+      <div class="grid-2" style="align-items:center">
+        <div class="hero-content">
+          <div class="tag">Supply Chain Experts</div>
+          <h1>Reliable Logistics Solutions for <em>Growing</em> Businesses</h1>
+          <p>We identify improvement opportunities, build solutions that promote growth, and deliver excellence to your customers — every step of the way.</p>
+          <div class="hero-btns">
+            <a class="btn btn-primary" onclick="go('contact')">Get Started</a>
+            <a class="btn btn-outline" onclick="go('consulting')">Learn More</a>
+          </div>
+          <div class="hero-stats">
+            <div><div class="stat-num">98%</div><div class="stat-label">On-time delivery rate</div></div>
+            <div><div class="stat-num">500+</div><div class="stat-label">Clients served</div></div>
+            <div><div class="stat-num">15+</div><div class="stat-label">Years of expertise</div></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hv-card"><div class="step-badge"><div class="n">1</div>Identify</div><h3>Improvement Opportunities</h3><p>We audit your current operations and pinpoint hidden inefficiencies.</p></div>
+          <div class="hv-card"><div class="step-badge"><div class="n">2</div>Build</div><h3>Solutions That Promote Growth</h3><p>Custom logistics strategies tailored to your business and goals.</p></div>
+          <div class="hv-card"><div class="step-badge"><div class="n">3</div>Deliver</div><h3>Excellence to Your Customers</h3><p>Ongoing implementation, monitoring, and continuous improvement.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:2rem 0;border-bottom:1px solid var(--border)">
+    <div class="container">
+      <p style="text-align:center;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted)">Trusted by industry leaders</p>
+      <div class="logos-row">
+        <div class="logo-pill">NEXUS CORP</div><div class="logo-pill">AXIOM FOODS</div>
+        <div class="logo-pill">PINNACLE MFG</div><div class="logo-pill">RETAIL CO</div>
+        <div class="logo-pill">BRIDGELINE</div><div class="logo-pill">TRIDENT LLC</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-band">
+    <div class="container">
+      <div class="dark-grid">
+        <div>
+          <div class="tag">The Challenge</div>
+          <h2 style="margin-bottom:1rem">Chaotic logistics turn scaling into <em style="font-style:italic;color:#7EB8FF;font-weight:300">stalling</em></h2>
+          <p style="margin-bottom:1rem">You want to grow your business, but logistics issues keep slowing you down. Delayed deliveries, inventory mismanagement, and ballooning freight costs drain your time and money.</p>
+          <div class="pain-list">
+            <div class="pain-item"><div class="pain-dot"></div>Rising manufacturing and freight costs</div>
+            <div class="pain-item"><div class="pain-dot"></div>Frequent stockouts or overstocks</div>
+            <div class="pain-item"><div class="pain-dot"></div>Inconsistent or delayed deliveries</div>
+            <div class="pain-item"><div class="pain-dot"></div>Poor warehouse space utilization</div>
+            <div class="pain-item"><div class="pain-dot"></div>Rising customer complaints</div>
+          </div>
+        </div>
+        <div class="dark-box">
+          <h3>Your logistics should drive growth, not hinder it</h3>
+          <p style="font-size:0.9rem;line-height:1.8;margin-bottom:1rem">We understand that efficient logistics is the backbone of growing your business. At Nuevo, we take complexity out of your supply chain and turn it into your most powerful competitive advantage.</p>
+          <p style="font-size:0.9rem;line-height:1.8;margin-bottom:1.75rem">You don't have to choose between reliability, cost, and speed. We'll prove you can have all three.</p>
+          <a class="btn btn-white" onclick="go('contact')">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tag">What We Offer</div>
+      <h2 style="margin-bottom:0.75rem">Our Supply Chain Solutions</h2>
+      <p class="lead">Four integrated service lines, purpose-built to solve every logistics challenge.</p>
+      <div class="svc-grid">
+        <div class="svc-card anim" onclick="go('transactional')">
+          <div class="icon-box">🚛</div>
+          <h3>Transactional Services</h3>
+          <p>Competitive pricing, real-time tracking, and flexible routing to ensure your freight moves efficiently and cost-effectively across all modes.</p>
+          <span class="svc-lnk">Learn more →</span>
+        </div>
+        <div class="svc-card anim" onclick="go('transportation')">
+          <div class="icon-box">🗺️</div>
+          <h3>Managed Transportation</h3>
+          <p>End-to-end transportation management with scalable tech to optimize operations, carrier performance, and capacity.</p>
+          <span class="svc-lnk">Learn more →</span>
+        </div>
+        <div class="svc-card anim" onclick="go('warehousing')">
+          <div class="icon-box amber">🏭</div>
+          <h3>Warehousing &amp; Special Inventory</h3>
+          <p>Flexible, tech-driven warehousing with expert inventory management for cost-effective fulfillment.</p>
+          <span class="svc-lnk">Learn more →</span>
+        </div>
+        <div class="svc-card anim" onclick="go('consulting')">
+          <div class="icon-box amber">🔬</div>
+          <h3>Consulting</h3>
+          <p>Deep-dive supply chain assessments, identifying inefficiencies and delivering a concrete roadmap to high-performing logistics.</p>
+          <span class="svc-lnk">Learn more →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container" style="text-align:center">
+      <div class="tag">Our Process</div>
+      <h2 style="margin-bottom:0.75rem">How We Work</h2>
+      <p class="lead" style="max-width:520px;margin:0 auto">A proven 3-step approach, focused entirely on your growth.</p>
+      <div class="steps-row">
+        <div class="step-item anim"><div class="step-circle">1</div><h3>Identify Improvement Opportunities</h3><p>We assess your logistics operations in depth to find every area ready for optimization.</p></div>
+        <div class="step-item anim"><div class="step-circle">2</div><h3>Build Solutions That Promote Growth</h3><p>Our experts develop tailored strategies aligned with your needs, region, and goals.</p></div>
+        <div class="step-item anim"><div class="step-circle">3</div><h3>Deliver Excellence</h3><p>Implementation, monitoring, and continuous refinement to keep your operations smooth.</p></div>
+      </div>
+      <div style="margin-top:3rem"><a class="btn btn-primary" onclick="go('contact')">Get a Quote</a></div>
+    </div>
+  </section>
+
+  <section class="stats-band">
+    <div class="container">
+      <div class="stats-row">
+        <div><div class="num">98%</div><div class="lbl">On-time delivery rate</div></div>
+        <div><div class="num">500+</div><div class="lbl">Clients served</div></div>
+        <div><div class="num">$40M+</div><div class="lbl">Freight managed annually</div></div>
+        <div><div class="num">15+</div><div class="lbl">Years of experience</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tag">Client Stories</div>
+      <h2>What People Say</h2>
+      <p class="lead">Real stories from businesses we've helped streamline and scale.</p>
+      <div class="tgrid">
+        <div class="tcard anim"><div class="stars">★★★★★</div><p>"YOU ARE THE ABSOLUTE BEST! Seriously, sometimes you read my team's mind. Our freight costs dropped 22% in 90 days and delivery accuracy has never been better."</p><div class="t-author"><div class="avatar">JD</div><div><div class="t-name">Jennifer D.</div><div class="t-role">VP Operations, RetailCo</div></div></div></div>
+        <div class="tcard anim"><div class="stars">★★★★★</div><p>"The Nuevo team provides seamless and reliable support. It makes a real difference in our day-to-day operations. Visibility into our shipments has never been clearer."</p><div class="t-author"><div class="avatar">TB</div><div><div class="t-name">Tamsir B.</div><div class="t-role">Director of Logistics, Axiom Foods</div></div></div></div>
+        <div class="tcard anim"><div class="stars">★★★★★</div><p>"We have had a long-term relationship together that continues to thrive. As we scaled nationally, Nuevo scaled with us — always one step ahead of the challenges."</p><div class="t-author"><div class="avatar">ME</div><div><div class="t-name">Mike E.</div><div class="t-role">CEO, PrimePath Distribution</div></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <div class="cta-inner">
+        <div><h2>Tired of logistics holding you back?</h2><p>Schedule a free consultation and get a customized logistics plan.</p></div>
+        <a class="btn btn-white" onclick="go('contact')" style="font-size:1rem;padding:1rem 2.25rem;white-space:nowrap;cursor:pointer">Schedule Consultation Today</a>
+      </div>
+    </div>
+  </section>
+</div><!-- /home -->
+
+<!-- ════════ CONSULTING ════════ -->
+<div class="page" id="page-consulting">
+  <div class="page-hero"><div class="container">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a><span>›</span><span>Consulting</span></div>
+    <div class="tag">Expert Guidance</div>
+    <h1>Optimize Your Logistics for Growth with a Clear Action Plan</h1>
+    <p>We design practical, implementable supply chain plans tailored to your business — no one-size-fits-all solutions.</p>
+    <div style="margin-top:2rem"><a class="btn btn-primary" onclick="go('contact')">Talk to Logistics Experts</a></div>
+  </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <h2 style="margin-bottom:1rem">Logistics Problems Quietly Destroy Businesses</h2>
+          <p class="lead" style="margin-bottom:1.25rem">Supply chain issues start small but snowball fast. Delays and errors lead to unhappy customers and lost sales. Before you know it, you're bleeding money and falling behind competitors.</p>
+          <p style="color:var(--muted);font-weight:300;margin-bottom:1.5rem">Our approach is simple: <strong style="color:var(--navy)">we create custom logistics plans that work.</strong> We consider your unique business needs, regional factors, taxes, utilities, and labor costs — and the result is a strategy that actually drives growth.</p>
+          <a class="btn btn-primary" onclick="go('contact')">Get Your Custom Plan</a>
+        </div>
+        <div class="card">
+          <h3 style="font-size:0.97rem;font-family:'DM Sans',sans-serif;font-weight:600;margin-bottom:1rem;color:var(--navy)">⚠️ Warning Signs of a Problematic Supply Chain</h3>
+          <ul class="check-list">
+            <li>Rising manufacturing and operational costs</li>
+            <li>Frequent stockouts or overstocks</li>
+            <li>Inconsistent or delayed deliveries</li>
+            <li>Poor warehouse space utilization</li>
+            <li>Rising customer complaints and returns</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="container" style="text-align:center">
+      <div class="tag">Our Method</div>
+      <h2 style="margin-bottom:3rem">How We Do It</h2>
+      <div class="steps-row">
+        <div class="step-item"><div class="step-circle">1</div><h3>Analyze Your Supply Chain</h3><p>We get on a discovery call and map your current logistics operations from end to end.</p></div>
+        <div class="step-item"><div class="step-circle">2</div><h3>Craft Your Custom Plan</h3><p>We design a tailored strategy that aligns your resources with your growth goals.</p></div>
+        <div class="step-item"><div class="step-circle">3</div><h3>Refine and Optimize</h3><p>We monitor performance and continuously fine-tune for ongoing success.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="tag">Service Areas</div>
+      <h2>Key Areas of Our Consulting Services</h2>
+      <p class="lead">Our team has solutions for every logistics challenge you face.</p>
+      <div class="areas-grid">
+        <div class="area-card anim"><div class="icon-box" style="margin-bottom:0.75rem">🌐</div><h3>Network Modeling</h3><p>Optimize your entire supply chain structure to improve performance and reduce costs.</p><ul class="check-list"><li>Reduced shipping costs</li><li>Improved carrier performance</li><li>Enhanced operational efficiency</li><li>Increased visibility</li></ul></div>
+        <div class="area-card anim"><div class="icon-box" style="margin-bottom:0.75rem">📊</div><h3>Transportation Assessment</h3><p>Comprehensive evaluation of your transportation operations for more efficient shipping.</p><ul class="check-list"><li>Reduced shipping costs</li><li>Improved carrier performance</li><li>Advanced technology integration</li><li>Optimized routing</li></ul></div>
+        <div class="area-card anim"><div class="icon-box amber" style="margin-bottom:0.75rem">🏭</div><h3>Warehousing Strategy</h3><p>Thorough assessment of warehouse operations to identify improvement opportunities.</p><ul class="check-list"><li>Improved material flow</li><li>Enhanced layout efficiency</li><li>Optimized inventory slotting</li><li>Increased labor productivity</li></ul></div>
+        <div class="area-card anim"><div class="icon-box" style="margin-bottom:0.75rem">🌍</div><h3>Import/Export Assessment</h3><p>Analyze international trade operations for compliance and cost optimization.</p><ul class="check-list"><li>Simplified import/export processes</li><li>Trade regulation compliance</li><li>Reduced risk of penalties</li><li>C-TPAT program participation</li></ul></div>
+        <div class="area-card anim"><div class="icon-box amber" style="margin-bottom:0.75rem">⚡</div><h3>Lean Logistics Assessment</h3><p>Implement lean principles to eliminate waste and streamline your processes.</p><ul class="check-list"><li>Decreased working capital</li><li>Minimized waste in operations</li><li>Faster response to market changes</li><li>Better resource utilization</li></ul></div>
+        <div class="area-card anim"><div class="icon-box" style="margin-bottom:0.75rem">📈</div><h3>KPI &amp; Performance Review</h3><p>Define, track, and act on the metrics that matter most to your supply chain.</p><ul class="check-list"><li>Custom KPI frameworks</li><li>Real-time performance dashboards</li><li>Regular review cadences</li><li>Data-driven decision-making</li></ul></div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <div class="tag amber">Case Study</div>
+          <h2 style="margin-bottom:1rem">How Our Assessment Improved an Engineering Research Company</h2>
+          <p class="lead" style="margin-bottom:1.5rem">The client's inventory system lacked real-time visibility, causing stockouts and missed pickups. We implemented a comprehensive new management system.</p>
+          <div class="values-grid">
+            <div class="val-item"><h4>📦 98%</h4><p>On-time pickup rate</p></div>
+            <div class="val-item"><h4>🚚 100%</h4><p>On-time delivery rate</p></div>
+            <div class="val-item"><h4>📈 +18%</h4><p>Profit margin improvement</p></div>
+            <div class="val-item"><h4>✅ Zero</h4><p>Stockout incidents</p></div>
+          </div>
+          <div style="margin-top:1.75rem"><a class="btn btn-primary" onclick="go('casestudies')">Read Full Case Study</a></div>
+        </div>
+        <div class="card" style="background:var(--navy);border-color:var(--navy)">
+          <h3 style="color:#fff;font-family:'DM Sans',sans-serif;font-weight:600;margin-bottom:0.75rem">Ready for your personalized logistics blueprint?</h3>
+          <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-bottom:1.75rem;font-weight:300">Schedule a discovery call with our consultants and get a customized logistics plan to support your growth.</p>
+          <a class="btn btn-white" onclick="go('contact')">Talk to Logistics Experts Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container" style="max-width:800px">
+      <div class="tag">FAQ</div>
+      <h2 style="margin-bottom:0.5rem">Frequently Asked Questions</h2>
+      <p class="lead">Everything you need to know about logistics consulting with Nuevo.</p>
+      <div class="faq-list">
+        <div class="faq-item"><div class="faq-q" onclick="faq(this)">How can logistics consulting benefit my business profitability?<span class="faq-icon">+</span></div><div class="faq-a">Logistics consulting streamlines operations by identifying bottlenecks and applying industry best practices. This leads to faster turnaround times, reduced costs, improved customer satisfaction, and higher profitability. Consultants also identify growth opportunities in untapped markets and optimize resource allocation for maximum efficiency.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="faq(this)">How does consulting help me take control of my supply chain?<span class="faq-icon">+</span></div><div class="faq-a">Consulting provides optimized transportation procurement, enhanced supply chain reporting and visibility, freight network optimization, facilitated international expansion, and refined logistics process documentation. Each area is addressed with strategies tailored specifically to your business — not generic solutions.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="faq(this)">How long until I see results?<span class="faq-icon">+</span></div><div class="faq-a">For simpler operations, efficiency gains and cost reductions can appear within weeks. More comprehensive overhauls may take several months to fully materialize. The speed depends on the complexity of changes, your operational scale, and the scope of the transformation. We set clear expectations upfront.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="faq(this)">How do you use KPIs in your engagements?<span class="faq-icon">+</span></div><div class="faq-a">KPIs are our roadmap to success. We use them to track progress, identify deviations from expected outcomes, and guide collaborative problem-solving. When KPIs signal a need for change, we adjust strategies proactively to keep your logistics on track toward your goals.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="faq(this)">What industries do you serve?<span class="faq-icon">+</span></div><div class="faq-a">We have deep experience across manufacturing, retail, food &amp; beverage, engineering, e-commerce, healthcare, and automotive. Our consultants bring industry-specific knowledge to every engagement, ensuring recommendations are practical and immediately implementable.</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════ TRANSACTIONAL ════════ -->
+<div class="page" id="page-transactional">
+  <div class="page-hero"><div class="container">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a><span>›</span><span>Services</span><span>›</span><span>Transactional</span></div>
+    <div class="tag">Freight Services</div>
+    <h1>Move Freight Smarter, Faster, and at Better Rates</h1>
+    <p>Competitive pricing, real-time tracking, and flexible routing across all modes — LTL, FTL, air, and intermodal — to ensure your freight moves efficiently.</p>
+    <div style="margin-top:2rem"><a class="btn btn-primary" onclick="go('contact')">Get a Freight Quote</a></div>
+  </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <div class="tag">Why Nuevo</div>
+          <h2 style="margin-bottom:1rem">Full-Service Freight Brokerage &amp; Execution</h2>
+          <p class="lead" style="margin-bottom:1.25rem">We leverage our extensive carrier network and buying power to negotiate the best rates on your behalf — while managing execution from pickup to proof of delivery.</p>
+          <ul class="check-list" style="font-size:0.97rem;gap:0.5rem;display:flex;flex-direction:column">
+            <li>Access to 50,000+ vetted carriers across North America</li>
+            <li>Real-time shipment visibility and tracking portals</li>
+            <li>Competitive spot and contract rate negotiation</li>
+            <li>Flexible routing — LTL, FTL, Air, Intermodal, Drayage</li>
+            <li>Claims management and freight audit support</li>
+            <li>Dedicated account management team</li>
+          </ul>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <div style="background:var(--cyan);padding:1.5rem;color:#fff"><h3 style="color:#fff;font-family:'DM Sans',sans-serif;font-weight:600">Service Modes Available</h3></div>
+          <div style="padding:1.5rem;display:flex;flex-direction:column;gap:1rem">
+            <div style="display:flex;align-items:center;gap:1rem"><div class="icon-box" style="margin:0;width:40px;height:40px;font-size:1.1rem;flex-shrink:0">🚛</div><div><div style="font-weight:600;font-size:0.9rem;color:var(--navy)">Full Truckload (FTL)</div><div style="font-size:0.82rem;color:var(--muted)">Dedicated capacity for large shipments</div></div></div>
+            <div style="display:flex;align-items:center;gap:1rem"><div class="icon-box" style="margin:0;width:40px;height:40px;font-size:1.1rem;flex-shrink:0">📦</div><div><div style="font-weight:600;font-size:0.9rem;color:var(--navy)">Less Than Truckload (LTL)</div><div style="font-size:0.82rem;color:var(--muted)">Cost-effective shared freight solutions</div></div></div>
+            <div style="display:flex;align-items:center;gap:1rem"><div class="icon-box amber" style="margin:0;width:40px;height:40px;font-size:1.1rem;flex-shrink:0">✈️</div><div><div style="font-weight:600;font-size:0.9rem;color:var(--navy)">Air Freight</div><div style="font-size:0.82rem;color:var(--muted)">Expedited domestic and international</div></div></div>
+            <div style="display:flex;align-items:center;gap:1rem"><div class="icon-box amber" style="margin:0;width:40px;height:40px;font-size:1.1rem;flex-shrink:0">🚂</div><div><div style="font-weight:600;font-size:0.9rem;color:var(--navy)">Intermodal</div><div style="font-size:0.82rem;color:var(--muted)">Rail + truck for cost-effective long haul</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band"><div class="container"><div class="cta-inner"><div><h2>Ready to move freight smarter?</h2><p>Get a competitive quote within hours.</p></div><a class="btn btn-white" onclick="go('contact')" style="padding:1rem 2rem;white-space:nowrap;cursor:pointer">Request a Freight Quote</a></div></div></section>
+</div>
+
+<!-- ════════ TRANSPORTATION ════════ -->
+<div class="page" id="page-transportation">
+  <div class="page-hero"><div class="container">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a><span>›</span><span>Services</span><span>›</span><span>Managed Transportation</span></div>
+    <div class="tag">Managed Services</div>
+    <h1>End-to-End Transportation Management So You Can Focus on Growth</h1>
+    <p>Scalable technology and expert management of your entire transportation program. We own the complexity so you don't have to.</p>
+    <div style="margin-top:2rem"><a class="btn btn-primary" onclick="go('contact')">Get a Quote</a></div>
+  </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="tag">What's Included</div>
+      <h2 style="margin-bottom:0.5rem">A Fully Managed Transportation Program</h2>
+      <p class="lead">Strategy to execution, monitored and optimized continuously.</p>
+      <div class="tech-grid">
+        <div class="tech-card anim"><div class="icon-box" style="margin-bottom:0.75rem">📋</div><h3>Carrier Procurement &amp; Management</h3><p>We source, vet, and manage carrier relationships to ensure consistent performance and competitive rates.</p></div>
+        <div class="tech-card anim"><div class="icon-box" style="margin-bottom:0.75rem">📡</div><h3>Real-Time Visibility</h3><p>Full shipment tracking and event notifications through our TMS portal, giving you complete supply chain visibility.</p></div>
+        <div class="tech-card anim"><div class="icon-box amber" style="margin-bottom:0.75rem">💰</div><h3>Freight Audit &amp; Pay</h3><p>We audit every invoice against contracted rates, catching overcharges and billing errors before you pay.</p></div>
+        <div class="tech-card anim"><div class="icon-box" style="margin-bottom:0.75rem">📊</div><h3>Reporting &amp; Analytics</h3><p>Custom dashboards and KPI reports that give you the insights needed to make strategic transportation decisions.</p></div>
+        <div class="tech-card anim"><div class="icon-box amber" style="margin-bottom:0.75rem">🔄</div><h3>Continuous Optimization</h3><p>Regular lane analysis, carrier scorecards, and network optimization to reduce costs year over year.</p></div>
+        <div class="tech-card anim"><div class="icon-box" style="margin-bottom:0.75rem">🤝</div><h3>Dedicated Account Team</h3><p>A dedicated team that understands your business and proactively solves problems before they affect you.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band"><div class="container"><div class="cta-inner"><div><h2>Let us manage your transportation program</h2><p>Free up your team and reduce costs at the same time.</p></div><a class="btn btn-white" onclick="go('contact')" style="padding:1rem 2rem;white-space:nowrap;cursor:pointer">Schedule a Discovery Call</a></div></div></section>
+</div>
+
+<!-- ════════ WAREHOUSING ════════ -->
+<div class="page" id="page-warehousing">
+  <div class="page-hero"><div class="container">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a><span>›</span><span>Services</span><span>›</span><span>Warehousing</span></div>
+    <div class="tag">Warehousing &amp; Inventory</div>
+    <h1>Flexible, Tech-Driven Warehousing and Inventory Solutions</h1>
+    <p>From distribution and fulfillment to special handling and inventory management, we provide the expertise and technology your business needs.</p>
+    <div style="margin-top:2rem"><a class="btn btn-primary" onclick="go('contact')">Get a Warehousing Quote</a></div>
+  </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <div class="tag">Our Capabilities</div>
+          <h2 style="margin-bottom:1rem">Purpose-Built Warehousing for Growing Businesses</h2>
+          <p class="lead" style="margin-bottom:1.25rem">Whether you need overflow storage, a dedicated fulfillment center, or specialized handling, we have the facilities and expertise to match your requirements.</p>
+          <ul class="check-list" style="font-size:0.97rem;gap:0.5rem;display:flex;flex-direction:column">
+            <li>Cross-docking and transloading capabilities</li>
+            <li>Pick-and-pack fulfillment operations</li>
+            <li>Temperature-controlled and hazmat storage</li>
+            <li>Inventory cycle counting and reconciliation</li>
+            <li>EDI and WMS technology integration</li>
+            <li>Returns management and reverse logistics</li>
+          </ul>
+        </div>
+        <div class="values-grid" style="align-content:start">
+          <div class="val-item"><h4>📐 Space Optimization</h4><p>Scientific slotting and layout design to maximize throughput per square foot.</p></div>
+          <div class="val-item"><h4>📱 WMS Technology</h4><p>Real-time inventory visibility through cloud-based warehouse management systems.</p></div>
+          <div class="val-item"><h4>🔒 Security &amp; Compliance</h4><p>Secure facilities, C-TPAT compliant, with full audit trail documentation.</p></div>
+          <div class="val-item"><h4>📦 Special Handling</h4><p>Oversized, fragile, high-value, and hazardous material capabilities.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alt" style="text-align:center">
+    <div class="container"><h2 style="margin-bottom:0.5rem">Need warehousing that scales with you?</h2><p class="lead" style="margin:0 auto 2rem;max-width:480px">Tell us about your storage and fulfillment needs. We'll design a solution that fits.</p><a class="btn btn-primary" onclick="go('contact')">Request a Quote</a></div>
+  </section>
+</div>
+
+<!-- ════════ TECHNOLOGY ════════ -->
+<div class="page" id="page-technology">
+  <div class="page-hero"><div class="container">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a><span>›</span><span>Technology</span></div>
+    <div class="tag">Our Platform</div>
+    <h1>Technology That Gives You Complete Supply Chain Visibility</h1>
+    <p>Our TMS platform and integrations provide real-time data, intelligent automation, and actionable insights across your entire logistics operation.</p>
+    <div style="margin-top:2rem"><a class="btn btn-primary" onclick="go('contact')">Request a Demo</a></div>
+  </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="tag">Platform Features</div>
+      <h2 style="margin-bottom:0.5rem">Everything You Need in One Platform</h2>
+      <p class="lead">Purpose-built for logistics visibility, control, and continuous improvement.</p>
+      <div class="tech-grid">
+        <div class="tech-card anim"><div class="icon-box" style="margin-bottom:0.75rem">📡</div><h3>Real-Time Tracking</h3><p>Live shipment tracking across all carriers and modes. Proactive exception alerts before problems escalate.</p></div>
+        <div class="tech-card anim"><div class="icon-box" style="margin-bottom:0.75rem">📊</div><h3>Business Intelligence Dashboard</h3><p>Custom reports and KPI dashboards that surface the insights your team needs to act on immediately.</p></div>
+        <div class="tech-card anim"><div class="icon-box amber" style="margin-bottom:0.75rem">⚙️</div><h3>TMS Integration</h3><p>Seamless integration with your ERP, WMS, and order management systems via API or EDI.</p></div>
+        <div class="tech-card anim"><div class="icon-box" style="margin-bottom:0.75rem">🤖</div><h3>Automated Rate Shopping</h3><p>Instantly compare rates across hundreds of carriers and auto-select the best option based on your rules.</p></div>
+        <div class="tech-card anim"><div class="icon-box amber" style="margin-bottom:0.75rem">🔍</div><h3>Freight Audit Automation</h3><p>Automated invoice matching and discrepancy flagging, recovering overcharges before they're paid.</p></div>
+        <div class="tech-card anim"><div class="icon-box" style="margin-bottom:0.75rem">🌐</div><h3>Carrier Portal</h3><p>Self-service carrier onboarding, document exchange, and performance scorecarding in one place.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band"><div class="container"><div class="cta-inner"><div><h2>See our platform in action</h2><p>30-minute live demo, no commitment required.</p></div><a class="btn btn-white" onclick="go('contact')" style="padding:1rem 2rem;white-space:nowrap;cursor:pointer">Request a Demo</a></div></div></section>
+</div>
+
+<!-- ════════ ABOUT ════════ -->
+<div class="page" id="page-about">
+  <div class="page-hero"><div class="container">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a><span>›</span><span>About</span></div>
+    <div class="tag">Our Story</div>
+    <h1>A Team of Logistics Experts Obsessed with Your Growth</h1>
+    <p>Founded 15+ years ago, Nuevo Supply Chain Solutions takes the complexity out of logistics and gives businesses like yours a real competitive advantage.</p>
+  </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <div class="tag">Who We Are</div>
+          <h2 style="margin-bottom:1rem">Built by Logistics Professionals, for Growing Businesses</h2>
+          <p style="color:var(--muted);font-weight:300;line-height:1.8;margin-bottom:1rem">We know how disorganized logistics can cripple operations, inflate costs, and frustrate customers. Nuevo was built by practitioners — people who've spent careers inside warehouses, on dock floors, and in freight brokerage.</p>
+          <p style="color:var(--muted);font-weight:300;line-height:1.8;margin-bottom:1.75rem">Our mission: take the complexity out of logistics management and help you implement the systems your business needs to succeed, scale, and win.</p>
+          <div class="values-grid">
+            <div class="val-item"><h4>🎯 Client-First</h4><p>Every decision starts with what's best for the client.</p></div>
+            <div class="val-item"><h4>🔍 Transparency</h4><p>Honest pricing, timelines, and assessments.</p></div>
+            <div class="val-item"><h4>⚡ Responsiveness</h4><p>Logistics doesn't sleep. Neither does our support.</p></div>
+            <div class="val-item"><h4>📈 Results-Driven</h4><p>We measure success by your outcomes.</p></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--navy);border-color:var(--navy);display:flex;flex-direction:column;gap:1.5rem">
+          <h3 style="color:#fff;font-family:'DM Sans',sans-serif;font-weight:600">By the Numbers</h3>
+          <div><div style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1">15+</div><div style="font-size:0.83rem;color:rgba(255,255,255,0.5);margin-top:0.25rem">Years in operation</div></div>
+          <div><div style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1">500+</div><div style="font-size:0.83rem;color:rgba(255,255,255,0.5);margin-top:0.25rem">Clients served</div></div>
+          <div><div style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1">$40M+</div><div style="font-size:0.83rem;color:rgba(255,255,255,0.5);margin-top:0.25rem">Freight managed annually</div></div>
+          <div><div style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:900;color:#fff;line-height:1">50,000+</div><div style="font-size:0.83rem;color:rgba(255,255,255,0.5);margin-top:0.25rem">Vetted carrier relationships</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="container">
+      <div class="tag" style="display:block;text-align:center">Leadership Team</div>
+      <h2 style="text-align:center;margin-bottom:0.5rem">The People Behind Nuevo</h2>
+      <p class="lead" style="text-align:center;max-width:500px;margin:0 auto">Seasoned logistics professionals with deep expertise across transportation, warehousing, and supply chain technology.</p>
+      <div class="team-grid">
+        <div class="team-card anim"><div class="team-avatar">MR</div><div class="team-info"><h4>Maria Rodriguez</h4><p>Chief Executive Officer</p><p style="margin-top:0.4rem;font-size:0.8rem">20+ years in supply chain leadership across retail and manufacturing.</p></div></div>
+        <div class="team-card anim"><div class="team-avatar" style="color:var(--amber);background:linear-gradient(135deg,var(--amber-light),var(--bg3))">DJ</div><div class="team-info"><h4>David Johnson</h4><p>VP of Operations</p><p style="margin-top:0.4rem;font-size:0.8rem">Former 3PL director with expertise in managed transportation and TMS.</p></div></div>
+        <div class="team-card anim"><div class="team-avatar">SC</div><div class="team-info"><h4>Sarah Chen</h4><p>Director of Consulting</p><p style="margin-top:0.4rem;font-size:0.8rem">Lean Six Sigma Black Belt, network modeling and warehouse optimization expert.</p></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════ BLOG ════════ -->
+<div class="page" id="page-blog">
+  <div class="page-hero"><div class="container">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a><span>›</span><span>Resources</span></div>
+    <div class="tag">Knowledge Center</div>
+    <h1>Supply Chain Insights &amp; Industry Updates</h1>
+    <p>Expert articles, case studies, and industry analysis to help you stay ahead in logistics.</p>
+  </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="tag">Latest Articles</div>
+      <h2>Blog</h2>
+      <p class="lead">Practical advice from our team of supply chain experts.</p>
+      <div class="blog-grid">
+        <div class="blog-card anim"><div class="blog-thumb">🚛</div><div class="blog-body"><div class="blog-cat">Transportation</div><h3>5 Ways to Reduce Freight Costs Without Sacrificing Service</h3><p>Proven strategies for cutting transportation spend while maintaining delivery performance.</p><div class="blog-meta">March 2026 · 5 min read</div></div></div>
+        <div class="blog-card anim"><div class="blog-thumb">📦</div><div class="blog-body"><div class="blog-cat">Warehousing</div><h3>The Hidden Costs of Poor Inventory Management</h3><p>Overstocking and stockouts cost more than most businesses realize. Here's how to fix it.</p><div class="blog-meta">February 2026 · 7 min read</div></div></div>
+        <div class="blog-card anim"><div class="blog-thumb">🌐</div><div class="blog-body"><div class="blog-cat">Industry</div><h3>Supply Chain Trends to Watch in 2026</h3><p>From AI-driven forecasting to nearshoring — the macro forces reshaping logistics this year.</p><div class="blog-meta">January 2026 · 6 min read</div></div></div>
+        <div class="blog-card anim"><div class="blog-thumb">⚡</div><div class="blog-body"><div class="blog-cat">Consulting</div><h3>How Lean Logistics Principles Can Transform Your Operations</h3><p>Applied to logistics, lean principles eliminate waste and dramatically improve throughput.</p><div class="blog-meta">December 2025 · 8 min read</div></div></div>
+        <div class="blog-card anim"><div class="blog-thumb">📊</div><div class="blog-body"><div class="blog-cat">Technology</div><h3>Making the Most of Your TMS: A Practical Guide</h3><p>Most companies use only 30% of their TMS. Here's how to unlock the full value.</p><div class="blog-meta">November 2025 · 5 min read</div></div></div>
+        <div class="blog-card anim"><div class="blog-thumb">🤝</div><div class="blog-body"><div class="blog-cat">Carriers</div><h3>Building Carrier Relationships That Survive Peak Season</h3><p>Build partnerships that hold when the market gets tight and capacity crunches hit.</p><div class="blog-meta">October 2025 · 4 min read</div></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════ CASE STUDIES ════════ -->
+<div class="page" id="page-casestudies">
+  <div class="page-hero"><div class="container">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a><span>›</span><span>Resources</span><span>›</span><span>Case Studies</span></div>
+    <div class="tag">Client Results</div>
+    <h1>Real Businesses, Real Results</h1>
+    <p>See how we've helped businesses across industries transform their logistics and achieve measurable growth.</p>
+  </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="card" style="border-top:4px solid var(--cyan)">
+          <div class="tag">Engineering</div>
+          <h3 style="font-family:'Fraunces',serif;font-size:1.25rem;margin-bottom:0.75rem">Engineering Research Company — Inventory Transformation</h3>
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.25rem;font-weight:300">The client's inventory system lacked real-time visibility, causing stockouts and missed pickups. We implemented a comprehensive new management system with full real-time tracking.</p>
+          <div class="values-grid" style="margin:0;gap:0.75rem">
+            <div class="val-item" style="text-align:center"><h4>98%</h4><p>On-time pickup rate</p></div>
+            <div class="val-item" style="text-align:center"><h4>100%</h4><p>On-time delivery</p></div>
+            <div class="val-item" style="text-align:center"><h4>+18%</h4><p>Profit margin improvement</p></div>
+            <div class="val-item" style="text-align:center"><h4>Zero</h4><p>Stockout incidents</p></div>
+          </div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--amber)">
+          <div class="tag amber">Retail</div>
+          <h3 style="font-family:'Fraunces',serif;font-size:1.25rem;margin-bottom:0.75rem">National Retailer — Transportation Cost Reduction</h3>
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.25rem;font-weight:300">A growing retailer was spending 40% above market rate on freight with no visibility into spending or carrier performance. Our managed transportation program transformed results in 90 days.</p>
+          <div class="values-grid" style="margin:0;gap:0.75rem">
+            <div class="val-item" style="text-align:center"><h4>22%</h4><p>Freight cost reduction</p></div>
+            <div class="val-item" style="text-align:center"><h4>97%</h4><p>Carrier on-time performance</p></div>
+            <div class="val-item" style="text-align:center"><h4>100%</h4><p>Shipment visibility</p></div>
+            <div class="val-item" style="text-align:center"><h4>3×</h4><p>Faster exception resolution</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band"><div class="container"><div class="cta-inner"><div><h2>Want results like these?</h2><p>Let's talk about what's possible for your business.</p></div><a class="btn btn-white" onclick="go('contact')" style="padding:1rem 2rem;white-space:nowrap;cursor:pointer">Schedule a Free Consultation</a></div></div></section>
+</div>
+
+<!-- ════════ CONTACT ════════ -->
+<div class="page" id="page-contact">
+  <div class="page-hero"><div class="container">
+    <div class="breadcrumb"><a onclick="go('home')">Home</a><span>›</span><span>Contact</span></div>
+    <div class="tag">Let's Talk</div>
+    <h1>Schedule Your Free Logistics Consultation</h1>
+    <p>Tell us about your business and logistics challenges. We'll reach out within one business day.</p>
+  </div></div>
+  <section class="section">
+    <div class="container">
+      <div class="contact-wrap">
+        <div>
+          <h2 style="font-size:1.55rem;margin-bottom:0.4rem">Request a Quote</h2>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:2rem;font-weight:300">Fill in the form below. A member of our team will respond within 24 hours.</p>
+          <div id="frmSuccess" class="form-success">
+            <h3>✅ Thank you! We've received your request.</h3>
+            <p>A member of our team will contact you within one business day to schedule your consultation.</p>
+          </div>
+          <form id="quoteForm" novalidate>
+            <div class="form-row">
+              <div class="form-group" id="fg-fn"><label>First Name *</label><input id="fn" type="text" placeholder="John"/><div class="form-err">Please enter your first name.</div></div>
+              <div class="form-group" id="fg-ln"><label>Last Name *</label><input id="ln" type="text" placeholder="Smith"/><div class="form-err">Please enter your last name.</div></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group" id="fg-em"><label>Business Email *</label><input id="em" type="email" placeholder="john@company.com"/><div class="form-err">Please enter a valid email.</div></div>
+              <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+1 (555) 000-0000"/></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group" id="fg-co"><label>Company Name *</label><input id="co" type="text" placeholder="Your Company LLC"/><div class="form-err">Please enter your company name.</div></div>
+              <div class="form-group" id="fg-sv"><label>Service of Interest *</label>
+                <select id="sv">
+                  <option value="">Select a service...</option>
+                  <option>Consulting</option>
+                  <option>Transactional Services (Freight)</option>
+                  <option>Managed Transportation</option>
+                  <option>Warehousing &amp; Inventory</option>
+                  <option>Technology Platform</option>
+                  <option>Multiple / Not Sure Yet</option>
+                </select>
+                <div class="form-err">Please select a service.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Monthly Shipment Volume</label>
+              <select>
+                <option value="">Select approximate volume...</option>
+                <option>1–25 shipments/month</option>
+                <option>26–100 shipments/month</option>
+                <option>101–500 shipments/month</option>
+                <option>500+ shipments/month</option>
+              </select>
+            </div>
+            <div class="form-group" id="fg-msg"><label>Tell Us About Your Challenge *</label><textarea id="msg" placeholder="Briefly describe your current logistics situation and what you're hoping to improve..."></textarea><div class="form-err">Please describe your challenge (at least 10 characters).</div></div>
+            <button type="submit" class="btn btn-primary" style="width:100%;padding:1rem;font-size:0.97rem">Submit Request →</button>
+            <p style="font-size:0.77rem;color:var(--muted);margin-top:0.75rem;text-align:center">We respect your privacy. Your information is never shared with third parties.</p>
+          </form>
+        </div>
+        <div>
+          <div class="cinfo-box">
+            <h3>Contact Information</h3>
+            <div class="cinfo-item"><div class="cinfo-icon">📍</div><div><div class="cinfo-lbl">Address</div><div class="cinfo-val">4607 Commerce Blvd, Suite 200<br>Grand Rapids, MI 49512</div></div></div>
+            <div class="cinfo-item"><div class="cinfo-icon">📞</div><div><div class="cinfo-lbl">Phone</div><div class="cinfo-val">+1 (616) 555-0900</div></div></div>
+            <div class="cinfo-item"><div class="cinfo-icon">✉️</div><div><div class="cinfo-lbl">Email</div><div class="cinfo-val">hello@nuevoscm.com</div></div></div>
+            <div class="cinfo-item"><div class="cinfo-icon">🕐</div><div><div class="cinfo-lbl">Business Hours</div><div class="cinfo-val">Mon–Fri: 8:00am – 6:00pm EST</div></div></div>
+          </div>
+          <div class="card" style="margin-top:1.5rem;background:var(--bg2)">
+            <h3 style="font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.97rem;margin-bottom:1rem">What happens next?</h3>
+            <div style="display:flex;flex-direction:column;gap:0.85rem">
+              <div style="display:flex;gap:0.75rem;align-items:flex-start"><div style="width:24px;height:24px;min-width:24px;background:var(--cyan);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:#fff">1</div><div style="font-size:0.875rem;color:var(--muted)">We review your submission within 24 hours</div></div>
+              <div style="display:flex;gap:0.75rem;align-items:flex-start"><div style="width:24px;height:24px;min-width:24px;background:var(--cyan);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:#fff">2</div><div style="font-size:0.875rem;color:var(--muted)">A logistics expert calls to learn more about your needs</div></div>
+              <div style="display:flex;gap:0.75rem;align-items:flex-start"><div style="width:24px;height:24px;min-width:24px;background:var(--cyan);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:#fff">3</div><div style="font-size:0.875rem;color:var(--muted)">We deliver a customized proposal and action plan</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" onclick="go('home')">nuevo<span>.</span></div>
+        <p>We take the complexity out of logistics management and help you implement the systems your business needs to succeed, scale, and win.</p>
+        <div class="social-row">
+          <div class="soc-btn">in</div>
+          <div class="soc-btn">fb</div>
+          <div class="soc-btn">tw</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><button onclick="go('consulting')">Consulting</button></li>
+          <li><button onclick="go('transactional')">Transactional</button></li>
+          <li><button onclick="go('transportation')">Managed Transportation</button></li>
+          <li><button onclick="go('warehousing')">Warehousing &amp; Inventory</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><button onclick="go('technology')">Technology</button></li>
+          <li><button onclick="go('about')">About Us</button></li>
+          <li><button onclick="go('blog')">Resources</button></li>
+          <li><button onclick="go('casestudies')">Case Studies</button></li>
+          <li><a>Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a>hello@nuevoscm.com</a></li>
+          <li><a>+1 (616) 555-0900</a></li>
+          <li><a>Grand Rapids, MI 49512</a></li>
+          <li style="margin-top:0.5rem"><button onclick="go('contact')" class="btn btn-primary" style="font-size:0.8rem;padding:0.5rem 1rem">Request a Quote</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Nuevo Supply Chain Solutions. All rights reserved.</p>
+      <div class="footer-lnks"><a>Terms &amp; Conditions</a><a>Privacy Policy</a><a>Sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── ROUTER ──
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const p=document.getElementById('page-'+id);
+  if(p){p.classList.add('active')}
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const activeLink=document.querySelector(`.nav-links a[onclick="go('${id}')"]`);
+  if(activeLink)activeLink.classList.add('active');
+  // trigger anim for new page
+  setTimeout(animateVisible,50);
+}
+
+// ── MOBILE MENU ──
+function toggleMob(){
+  document.getElementById('mobMenu').classList.toggle('open');
+  document.getElementById('hamBtn').classList.toggle('open');
+}
+
+// ── FAQ ──
+function faq(el){
+  const item=el.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  item.closest('.faq-list').querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+// ── FORM VALIDATION ──
+document.getElementById('quoteForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  let ok=true;
+  function chk(fgId,inputId,test){
+    const fg=document.getElementById(fgId);
+    const val=document.getElementById(inputId).value.trim();
+    if(!test(val)){fg.classList.add('err');ok=false}else{fg.classList.remove('err')}
+  }
+  chk('fg-fn','fn',v=>v.length>0);
+  chk('fg-ln','ln',v=>v.length>0);
+  chk('fg-em','em',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+  chk('fg-co','co',v=>v.length>0);
+  chk('fg-sv','sv',v=>v.length>0);
+  chk('fg-msg','msg',v=>v.length>9);
+  if(ok){
+    document.getElementById('quoteForm').style.display='none';
+    const s=document.getElementById('frmSuccess');
+    s.style.display='block';
+    s.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+});
+
+// ── NAV SCROLL EFFECT ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').style.boxShadow=
+    window.scrollY>20?'0 2px 20px rgba(13,27,53,0.09)':'none';
+});
+
+// ── SCROLL ANIMATIONS ──
+const io=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('in'),i*70);
+    }
+  });
+},{threshold:0.1});
+
+function animateVisible(){
+  document.querySelectorAll('.page.active .anim').forEach(el=>io.observe(el));
+}
+animateVisible();
+</script>
+</body>
+</html>
